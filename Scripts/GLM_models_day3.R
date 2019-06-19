@@ -6,13 +6,20 @@
 library(glmmTMB)
 library(data.table)
 library(tidyverse)
+library(magrittr)
 library(gridExtra)
+library(sjPlot)
 
 theme_set(ggpubr::theme_pubclean(base_size = 15)) # Load theme
 
 # Cargar datos
 
 d <- fread("Datasets/BrownFat_2011.csv")
+
+d[, Cancer_Status := as.factor(Cancer_Status)]
+d[, Cancer_Type := as.factor(Cancer_Type)]
+d[, Sex := as.factor(Sex)]
+
 
 # Sección 1: Gráficos de checkeo ------------------------------------------------------------
  
@@ -117,13 +124,13 @@ par(mfrow = c(1,3),
     mar = c(5, 5, 2.5, 2.5),
     cex.axis = 1.2, cex.lab = 1.5, cex.main = 1.2, cex.sub = 20)
 
-plot(fitted(m7.2), residuals(m7.3), 
+plot(fitted(m7.1), residuals(m7.1), 
      xlab = "Valor Ajustado", ylab = "Valor Residual")
-qqnorm(resid(m7.3))
-qqline(resid(m7.3))
-hist(resid(m7.3), breaks = 64, xlab = "Residuos", main = "")
+qqnorm(resid(m7.1))
+qqline(resid(m7.1))
+hist(resid(m7.1), breaks = 64, xlab = "Residuos", main = "")
 
-p  <- plot_model(m7.3,type = "pred",  
+p  <- plot_model(m7.1,type = "pred",  
                  vcov.fun = "vcovCL") 
 do.call("grid.arrange", c(p, ncol = 4))
 
