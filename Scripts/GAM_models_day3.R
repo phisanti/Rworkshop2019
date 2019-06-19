@@ -130,7 +130,7 @@ AIC(m5, m6, m7) %>% data.table(., keep.rownames = T) %>% .[order(AIC)]
 
 # Sección 4: Representación visual del modelo ---------------------------------
 
-par(mfrow=c(1, 3))
+par(mfrow=c(1, 4)) # Dividir pantalla de basic plot en 4
 
 
 # Mostrar los efectos de cada variable
@@ -149,7 +149,7 @@ hist(resid(m7), breaks = 100,
      main = "Histograma de errores", xlab = bquote("y"[i]~" - "~hat(y)))
 
 qq.gam(m7, s.rep = 10, rep = 10, cex = 0.5, pch = 16)
-par(mfrow=c(1, 1),
+par(mfrow=c(1, 1), # Reunificar basic plot device
     mar = c(5, 5, 5, 5))
 
 # Representar interacci'on entre 2 variables v1 = gráfico de contorno 
